@@ -28,28 +28,39 @@ const upload = multer({
 const bcrypt = require('bcryptjs');
 
 // POST /api/profile/upload-photo
-router.post('/upload-photo', auth, upload.single('photo'), async (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).json({ success: false, message: 'No file provided for student profile.' });
+router.post('/upload-photo', auth, (req, res) => {
+  upload.single('photo')(req, res, async (err) => {
+    if (err instanceof multer.MulterError) {
+      return res.status(400).json({ success: false, message: `Storage protocol error: ${err.message}` });
+    } else if (err) {
+      return res.status(400).json({ success: false, message: err.message });
     }
 
-    const photoUrl = `http://localhost:5000/uploads/${req.file.filename}`;
+    try {
+      if (!req.file) {
+        return res.status(400).json({ success: false, message: 'No file provided for student profile.' });
+      }
+
+      // Determine public URL dynamically
+      const protocol = req.protocol === 'http' && req.headers['x-forwarded-proto'] ? 'https' : req.protocol;
+      const host = req.get('host');
+      const photoUrl = `${protocol}://${host}/uploads/${req.file.filename}`;
 
     await db.query(
       'UPDATE users SET photo_url = ? WHERE id = ?',
       [photoUrl, req.user.id]
     );
 
-    res.json({
-      success: true,
-      message: 'Institutional profile photo updated.',
-      photoUrl
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, message: 'Internal profile upload error.' });
-  }
+      res.json({
+        success: true,
+        message: 'Institutional profile photo updated.',
+        photoUrl
+      });
+    } catch (dbErr) {
+      console.error('Database Sync Error:', dbErr);
+      res.status(500).json({ success: false, message: 'Institutional ledger synchronization failure.' });
+    }
+  });
 });
 
 // POST /api/profile/change-password
