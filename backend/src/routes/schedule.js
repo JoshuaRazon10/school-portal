@@ -12,15 +12,28 @@ router.get('/', auth, async (req, res) => {
     let params = [];
     
     if (req.user.role === 'admin') {
-      query = 'SELECT id, day, time_start as time_start, time_end as time_end, name as subject, room, teacher FROM subjects';
+      query = 'SELECT id, day, time_start, time_end, name as subject, room, teacher FROM subjects';
     } else {
+      // 1. Fetch Student Identity
+      const userRows = await db.query('SELECT course, year_level, semester FROM users WHERE id = ?', [req.user.id]);
+      const user = userRows[0];
+      
+      if (!user) return res.status(404).json({ success: false, message: 'Identity not found.' });
+
+      // 2. Fetch Program ID
+      const programRows = await db.query('SELECT id FROM programs WHERE name = ?', [user.course]);
+      let programId = null;
+      if (programRows.length > 0) programId = programRows[0].id;
+
+      // 3. Hybrid Fetch: Program Subjects + Manual Enrollments
       query = `
-        SELECT s.id, s.day, s.time_start as time_start, s.time_end as time_end, s.name as subject, s.room, s.teacher 
+        SELECT DISTINCT s.id, s.day, s.time_start, s.time_end, s.name as subject, s.room, s.teacher 
         FROM subjects s
-        JOIN student_subjects ss ON s.id = ss.subject_id
-        WHERE ss.user_id = ?
+        LEFT JOIN student_subjects ss ON s.id = ss.subject_id
+        WHERE (s.program_id = ? AND s.year_level = ? AND s.semester = ?)
+           OR ss.user_id = ?
       `;
-      params = [req.user.id];
+      params = [programId, user.year_level, user.semester, req.user.id];
     }
     
     const schedules = await db.query(query, params);
