@@ -2,6 +2,7 @@
 import { useState, useRef } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import Topbar from '@/components/Topbar/Topbar';
+import { api } from '@/lib/api';
 import { useToast } from '@/context/ToastContext';
 
 export default function Profile() {
@@ -166,10 +167,10 @@ export default function Profile() {
                 try {
                   const res = await api.post('/profile/change-password', { oldPassword: oldPass, newPassword: newPass });
                   if (res.success) {
-                    showToast(data.message, 'success');
+                    showToast(res.message, 'success');
                     setShowPassModal(false);
                   } else {
-                    showToast(data.message, 'error');
+                    showToast(res.message, 'error');
                   }
                 } catch (err) {
                   showToast('Security server unreachable.', 'error');
