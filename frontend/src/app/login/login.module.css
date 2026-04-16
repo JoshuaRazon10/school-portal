@@ -3,21 +3,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f8fafc;
+  background: url('/images/school-bg.jpg') no-repeat center center fixed;
+  background-size: cover;
   position: relative;
   overflow: hidden;
   padding: 24px;
 }
 
-.blob1, .blob2 {
+.page::before {
+  content: '';
   position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  z-index: 0;
-  opacity: 0.1;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.2);
+  backdrop-filter: blur(3px);
+  z-index: 1;
 }
-.blob1 { width: 500px; height: 500px; background: #1e3a8a; top: -100px; left: -100px; }
-.blob2 { width: 400px; height: 400px; background: #3b82f6; bottom: -80px; right: -80px; }
+
+/* Decorative Blobs removed to focus on school background */
+.blob1, .blob2 { display: none; }
 
 .container {
   width: 100%;
@@ -33,11 +36,13 @@
 }
 
 .card {
-  background: white;
-  border: 2px solid #1e3a8a;
-  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 40px;
   padding: 48px;
-  box-shadow: 0 35px 70px -12px rgba(30, 58, 138, 0.15);
+  box-shadow: 0 40px 100px -12px rgba(0, 0, 0, 0.2);
   text-align: center;
 }
 
@@ -46,12 +51,12 @@
 .logoCircle {
   width: 110px;
   height: 110px;
-  background: white;
+  background: rgba(255, 255, 255, 0.9);
   margin: 0 auto 24px;
   border-radius: 50%;
   padding: 8px;
-  box-shadow: 0 8px 24px rgba(30, 58, 138, 0.15);
-  border: 4px solid #f8fafc;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,19 +72,20 @@
 .logoImg { border-radius: 50%; object-fit: contain; }
 
 .title {
-  font-size: 24px;
-  font-weight: 800;
-  color: #1e1b4b;
-  letter-spacing: -0.025em;
-  margin-bottom: 6px;
+  font-size: 28px;
+  font-weight: 900;
+  color: #1e3a8a;
+  letter-spacing: -0.04em;
+  margin-bottom: 8px;
 }
 
 .subtitle {
-  font-size: 14px;
-  color: #64748b;
-  font-weight: 500;
+  font-size: 12px;
+  color: #1e3a8a;
+  opacity: 0.8;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
 }
 
 .divider {
@@ -114,7 +120,8 @@
 .footer {
   margin-top: 32px;
   font-size: 14px;
-  color: #94a3b8;
+  color: #1e3a8a;
+  font-weight: 600;
 }
 
 .registerLink {
