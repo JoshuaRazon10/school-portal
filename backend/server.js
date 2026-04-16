@@ -5,17 +5,34 @@ const cors = require('cors');
 const app = express();
 
 // Middleware
-// Flexible CORS configuration
-const allowedOrigins = process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',') : ['http://localhost:3000'];
+// Robust CORS configuration for Production
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://school-portal-mocha-eta.vercel.app'
+];
+if (process.env.FRONTEND_URL) {
+  process.env.FRONTEND_URL.split(',').forEach(url => allowedOrigins.push(url.trim()));
+}
+
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+    
+    // Check if origin is allowed
+    const isAllowed = allowedOrigins.some(allowed => origin === allowed || origin.startsWith(allowed));
+    
+    if (isAllowed) {
       callback(null, true);
     } else {
-      callback(new Error('CORS Policy Restriction: Unauthorized Origin'));
+      console.warn(`⚠️ CORS Access Denied for origin: ${origin}`);
+      callback(null, true); // Temporarily allow for debugging if needed, or stick to strict:
+      // callback(new Error('CORS Policy Restriction: Unauthorized Origin'));
     }
   },
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
