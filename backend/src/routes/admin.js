@@ -12,7 +12,11 @@ router.get('/students', auth, admin, async (req, res) => {
     res.json({ success: true, students: students || [] });
   } catch (err) {
     console.error('Audit Fetch Error:', err);
-    res.status(500).json({ success: false, message: 'Institutional student fetch error.' });
+    res.status(500).json({ 
+      success: false, 
+      message: 'Institutional student fetch error.',
+      debug_info: err.message
+    });
   }
 });
 
@@ -65,7 +69,8 @@ router.post('/register-student', auth, admin, async (req, res) => {
     res.status(500).json({ 
       success: false, 
       message: 'Administrative registration error.',
-      error: process.env.NODE_ENV === 'development' ? err.message : undefined 
+      debug_info: err.message, // Temporarily expose for diagnostics
+      stack: err.stack
     });
   }
 });
