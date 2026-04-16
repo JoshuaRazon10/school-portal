@@ -122,6 +122,7 @@ export default function AdminSubjects() {
       showAlert('Schedule Conflict', 'The selected time range overlaps with an existing subject specification.', 'warning');
       return;
     }
+    const url = editingSubject ? `/admin/update-subject/${editingSubject.id}` : '/admin/create-subject';
     const res = await (api as any)[editingSubject ? 'put' : 'post'](url, formData);
     if (res.success) {
       showToast(`Institutional spec "${formData.code}" has been finalized.`, 'success');
