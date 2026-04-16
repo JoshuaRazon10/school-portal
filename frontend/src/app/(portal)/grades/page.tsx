@@ -60,8 +60,7 @@ export default function Grades() {
             <table style={{ width: '100%', borderCollapse: 'collapse' }}>
               <thead>
                 <tr style={{ background: '#fcfdfe', borderBottom: '2px solid #f1f5f9' }}>
-                  <th className="th-cell">Identity</th>
-                  <th className="th-cell">Description</th>
+                  <th className="th-cell">Subject Description</th>
                   <th className="th-cell">Academic Term</th>
                   <th className="th-cell">Performance Vector</th>
                   <th className="th-cell" style={{ textAlign: 'center' }}>Institutional Grade</th>
@@ -70,7 +69,6 @@ export default function Grades() {
               <tbody>
                 {grades.map((g: any, i: number) => (
                   <tr key={g.id} className="row-hover">
-                    <td className="td-cell" style={{ fontWeight: 800, color: '#1e3a5f' }}>{g.courseId || 'IT112'}</td>
                     <td className="td-cell" style={{ fontWeight: 700, color: '#1e293b' }}>{g.courseName}</td>
                     <td className="td-cell" style={{ color: '#94a3b8', fontWeight: 600 }}>{g.semester}</td>
                     <td className="td-cell" style={{ width: 240 }}>
