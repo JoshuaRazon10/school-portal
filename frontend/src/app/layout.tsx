@@ -4,8 +4,8 @@ import { AuthProvider } from '@/context/AuthContext';
 import { ToastProvider } from '@/context/ToastContext';
 
 export const metadata: Metadata = {
-  title: 'EduPortal – Student Portal',
-  description: 'Your smart student portal for grades, courses, assignments, and more.',
+  title: 'CHCC Student Portal',
+  description: 'Concepcion Holy Cross College Institutional Gateway – Strategic academic management for grades, schedules, and financial hub.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
