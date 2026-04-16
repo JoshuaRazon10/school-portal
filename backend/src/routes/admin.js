@@ -9,8 +9,9 @@ const admin = require('../middleware/admin');
 router.get('/students', auth, admin, async (req, res) => {
   try {
     const students = await db.query('SELECT id, name, student_id as studentId, course, year_level as yearLevel, email, gpa FROM users WHERE role = "student"');
-    res.json({ success: true, students });
+    res.json({ success: true, students: students || [] });
   } catch (err) {
+    console.error('Audit Fetch Error:', err);
     res.status(500).json({ success: false, message: 'Institutional student fetch error.' });
   }
 });
@@ -29,12 +30,19 @@ router.get('/all-subjects', auth, admin, async (req, res) => {
 router.post('/register-student', auth, admin, async (req, res) => {
   try {
     const { name, email, phone, password, course, yearLevel } = req.body;
+    
+    // Check if email already exists
+    const existing = await db.query('SELECT id FROM users WHERE email = ?', [email]);
+    if (existing.length > 0) {
+      return res.status(400).json({ success: false, message: 'Identity Conflict: This email is already registered in the archives.' });
+    }
+
     const hashedPass = await bcrypt.hash(password, 10);
 
-    // Get the sequence number
+    // Get a unique numeric sequence (based on current timestamp + count for uniqueness)
     const countRows = await db.query('SELECT COUNT(*) as studentCount FROM users WHERE role = "student"');
-    const studentNum = countRows[0].studentCount + 1;
-    const studentId = `${studentNum}2026`;
+    const studentNum = countRows[0].studentCount + 1001; 
+    const studentId = `CHCC-2026-${studentNum}`;
 
     const avatar = name.split(' ').map(n => n[0]).join('').toUpperCase();
 
@@ -43,15 +51,22 @@ router.post('/register-student', auth, admin, async (req, res) => {
       [name, email, phone, hashedPass, course, parseInt(yearLevel), studentId, avatar]
     );
 
+    // For INSERT, result usually has insertId directly if we return results in db.js
     const newUserId = result.insertId;
 
-    // --- Automatic Billing: Initial Enrollment + Institutional Fee (₱7,500) ---
-    await db.query('INSERT INTO financials (user_id, total_balance) VALUES (?, 7500.00)', [newUserId]);
+    if (newUserId) {
+       // --- Automatic Billing: Initial Enrollment + Institutional Fee (₱7,500) ---
+       await db.query('INSERT INTO financials (user_id, total_balance) VALUES (?, 7500.00)', [newUserId]);
+    }
 
-    res.json({ success: true, message: `Student Enrollment Registered: ${studentId}` });
+    res.json({ success: true, message: `Student Enrollment Registered: ${studentId}`, studentId });
   } catch (err) {
-    console.error('Registration error:', err);
-    res.status(500).json({ success: false, message: 'Administrative registration error.' });
+    console.error('Registration error details:', err);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Administrative registration error.',
+      error: process.env.NODE_ENV === 'development' ? err.message : undefined 
+    });
   }
 });
 
