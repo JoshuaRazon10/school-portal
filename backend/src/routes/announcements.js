@@ -35,7 +35,8 @@ router.get('/', auth, async (req, res) => {
 router.post('/', auth, admin, upload.single('image'), async (req, res) => {
   try {
     const { title, content, category, important, author, date } = req.body;
-    const imageUrl = req.file ? `http://localhost:5000/uploads/${req.file.filename}` : null;
+    const protocol = req.protocol === 'http' && req.headers['x-forwarded-proto'] ? 'https' : req.protocol;
+    const imageUrl = req.file ? `${protocol}://${req.get('host')}/uploads/${req.file.filename}` : null;
 
     await db.query(
       'INSERT INTO announcements (title, content, category, important, author, date, image_url) VALUES (?, ?, ?, ?, ?, ?, ?)',

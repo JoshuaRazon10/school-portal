@@ -24,20 +24,15 @@ export default function Profile() {
 
     setUploading(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/profile/upload-photo`, {
-        method: 'POST',
-        headers: { 'Authorization': `Bearer ${token}` },
-        body: formData,
-      });
-
-      const data = await res.json();
-      if (data.success) {
-        const updatedUser = { ...user, photo_url: data.photoUrl };
+      const res = await api.post('/profile/upload-photo', formData);
+      
+      if (res.success) {
+        const updatedUser = { ...user, photo_url: res.photoUrl };
         sessionStorage.setItem('portal_user', JSON.stringify(updatedUser));
         showToast('Institutional identity synchronized.', 'success');
         setTimeout(() => window.location.reload(), 1000);
       } else {
-        showToast(data.message || 'Upload protocol exception.', 'error');
+        showToast(res.message || 'Upload protocol exception.', 'error');
       }
     } catch (err) {
       showToast('Institutional server unreachable.', 'error');
@@ -169,13 +164,8 @@ export default function Profile() {
                 }
 
                 try {
-                  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/profile/change-password`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                    body: JSON.stringify({ oldPassword: oldPass, newPassword: newPass })
-                  });
-                  const data = await res.json();
-                  if (data.success) {
+                  const res = await api.post('/profile/change-password', { oldPassword: oldPass, newPassword: newPass });
+                  if (res.success) {
                     showToast(data.message, 'success');
                     setShowPassModal(false);
                   } else {
