@@ -49,7 +49,7 @@ export default function StudentFinance() {
             <main className="page-content" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 40px' }}>
 
                 {/* Fiscal Metrics Deck */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32, marginBottom: 48 }}>
+                <div className="mobile-stack" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24, marginBottom: 40 }}>
                     <div className="fiscal-card gradient-blue">
                         <div className="card-overlay">₱</div>
                         <div className="f-label">GLOBAL OUTSTANDING ARREARS</div>
@@ -71,7 +71,7 @@ export default function StudentFinance() {
                 </div>
 
                 {/* Transaction Ledger */}
-                <div className="modern-card" style={{ padding: 48 }}>
+                <div className="modern-card" style={{ padding: '32px 20px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 40 }}>
                         <h3 style={{ fontSize: 22, fontWeight: 950, color: '#1e3a5f' }}>Transaction Audit Trail</h3>
                         <div className="ledger-stat">

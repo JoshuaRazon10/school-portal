@@ -63,6 +63,12 @@
 @media (max-width: 1024px) {
   .mobileToggle {
     display: flex !important;
+    top: 12px;
+    left: 14px;
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+    border-radius: 14px;
   }
 }
 

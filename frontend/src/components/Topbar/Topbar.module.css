@@ -87,8 +87,8 @@
 }
 
 @media (max-width: 600px) {
-  .topbar { padding: 12px 16px 12px 64px; }
-  .title { font-size: 16px; }
+  .topbar { padding: 12px 16px 12px 80px; }
+  .title { font-size: 15px; }
   .subtitle { display: none; }
   .pillName { display: none; }
   .userPill { padding: 4px; }

@@ -263,7 +263,7 @@ export default function Profile() {
             .profile-hero-section { margin-bottom: 160px; }
             .profile-content-grid { grid-template-columns: 1fr; gap: 32px; }
             .security-sidebar { position: static; }
-            .banner-content { left: 40px; bottom: 80px; }
+            .banner-content { left: 0; right: 0; text-align: center; bottom: 80px; }
             .banner-name { font-size: 28px; }
             .avatar-container { top: 160px; left: 50%; transform: translateX(-50%); }
          }
