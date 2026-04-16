@@ -8,7 +8,7 @@ const admin = require('../middleware/admin');
 // 1. Fetch All Students (Admin Only)
 router.get('/students', auth, admin, async (req, res) => {
   try {
-    const students = await db.query('SELECT id, name, student_id as studentId, course, year_level as yearLevel, email, gpa FROM users WHERE role = "student"');
+    const students = await db.query("SELECT id, name, student_id as studentId, course, year_level as yearLevel, email, gpa FROM users WHERE role = 'student'");
     res.json({ success: true, students: students || [] });
   } catch (err) {
     console.error('Audit Fetch Error:', err);
@@ -44,14 +44,14 @@ router.post('/register-student', auth, admin, async (req, res) => {
     const hashedPass = await bcrypt.hash(password, 10);
 
     // Get a unique numeric sequence (based on current timestamp + count for uniqueness)
-    const countRows = await db.query('SELECT COUNT(*) as studentCount FROM users WHERE role = "student"');
+    const countRows = await db.query("SELECT COUNT(*) as studentCount FROM users WHERE role = 'student'");
     const studentNum = countRows[0].studentCount + 1001; 
     const studentId = `CHCC-2026-${studentNum}`;
 
     const avatar = name.split(' ').map(n => n[0]).join('').toUpperCase();
 
     const result = await db.query(
-      'INSERT INTO users (name, email, phone, password, course, year_level, student_id, avatar, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, "student")',
+      "INSERT INTO users (name, email, phone, password, course, year_level, student_id, avatar, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'student')",
       [name, email, phone, hashedPass, course, parseInt(yearLevel), studentId, avatar]
     );
 
@@ -68,9 +68,7 @@ router.post('/register-student', auth, admin, async (req, res) => {
     console.error('Registration error details:', err);
     res.status(500).json({ 
       success: false, 
-      message: 'Administrative registration error.',
-      debug_info: err.message, // Temporarily expose for diagnostics
-      stack: err.stack
+      message: 'Administrative registration error. Please check for duplicate entries.'
     });
   }
 });
@@ -182,7 +180,7 @@ router.delete('/delete-subject/:id', auth, admin, async (req, res) => {
 // 11. Delete Student Account (Admin Only)
 router.delete('/delete-student/:id', auth, admin, async (req, res) => {
   try {
-    await db.query('DELETE FROM users WHERE id = ? AND role = "student"', [req.params.id]);
+    await db.query("DELETE FROM users WHERE id = ? AND role = 'student'", [req.params.id]);
     res.json({ success: true, message: 'Student admissions record purged.' });
   } catch (err) {
     res.status(500).json({ success: false, message: 'Account deletion error.' });
