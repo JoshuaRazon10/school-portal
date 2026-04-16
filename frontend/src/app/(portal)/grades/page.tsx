@@ -31,12 +31,12 @@ export default function Grades() {
 
       <main className="page-content" style={{ maxWidth: 1200, margin: '0 auto' }}>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 40 }}>
-          <div>
-            <h1 style={{ fontSize: 36, fontWeight: 950, letterSpacing: '-1.5px', color: '#1e3a5f' }}>Grade Records</h1>
-            <p style={{ color: '#64748b', fontWeight: 600, fontSize: 14 }}>Academic Cycle 2025-2026 · {user?.course}</p>
+        <div className="grades-header mobile-stack">
+          <div className="header-text">
+            <h1 className="header-title">Grade Records</h1>
+            <p className="header-subtitle">Academic Cycle 2025-2026 · {user?.course}</p>
           </div>
-          <div style={{ display: 'flex', gap: 16 }}>
+          <div className="metric-container mobile-stack">
             <div className="grade-metric">
               <div className="metric-icon">🔥</div>
               <div>
@@ -116,8 +116,13 @@ export default function Grades() {
 
          .modern-card { background: #fff; border-radius: 32px; border: 1.5px solid #edf2f7; box-shadow: 0 20px 40px rgba(0,0,0,0.03); }
          
-         .th-cell { padding: 24px 30px; fontSize: 11px; color: #94a3b8; fontWeight: 900; textTransform: uppercase; textAlign: left; letterSpacing: 0.5px; }
-         .td-cell { padding: 24px 30px; fontSize: 14px; border-bottom: 1.5px solid #f8fafc; }
+         .grades-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; gap: 24px; }
+         .header-title { font-size: 36px; font-weight: 950; letter-spacing: -1.5px; color: #1e3a5f; }
+         .header-subtitle { color: #64748b; font-weight: 600; font-size: 14px; }
+         .metric-container { display: flex; gap: 16px; }
+
+         .th-cell { padding: 24px 30px; font-size: 11px; color: #94a3b8; font-weight: 900; text-transform: uppercase; text-align: left; letter-spacing: 0.5px; }
+         .td-cell { padding: 24px 30px; font-size: 14px; border-bottom: 1.5px solid #f8fafc; }
          
          .row-hover { transition: background 0.2s ease; }
          .row-hover:hover { background: #fcfdfe; }
@@ -127,6 +132,20 @@ export default function Grades() {
             width: 44px; height: 44px; border-radius: 14px;
             font-size: 14px; font-weight: 950;
          }
+
+         @media (max-width: 1024px) {
+            .header-title { font-size: 28px; }
+            .grades-header { flex-direction: column; align-items: flex-start; }
+            .th-cell, .td-cell { padding: 16px 20px; }
+         }
+
+         @media (max-width: 768px) {
+            .header-title { font-size: 24px; text-align: center; }
+            .header-subtitle { text-align: center; }
+            .metric-container { width: 100%; flex-direction: column; }
+            .grade-metric { width: 100%; }
+         }
+
       `}</style>
     </div>
   );

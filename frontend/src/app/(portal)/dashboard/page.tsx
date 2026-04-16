@@ -14,25 +14,16 @@ export default function Dashboard() {
       <div className="animate-in" style={{ background: '#f8fafc', minHeight: '100vh', paddingBottom: 100 }}>
          <Topbar title={`${user.name.split(' ')[0]}'s Mission Control`} subtitle="Strategic oversight of academic identity and institutional performance." />
 
-         <main className="page-content" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 40px' }}>
+         <main className="page-content dash-main">
 
             {/* Identity Hero */}
-            <div style={{
-               background: 'linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%)',
-               padding: '60px 50px',
-               borderRadius: '40px',
-               color: '#fff',
-               marginBottom: 48,
-               position: 'relative',
-               overflow: 'hidden',
-               boxShadow: '0 20px 50px rgba(30,58,95,0.2)'
-            }}>
+            <div className="dash-hero">
                <div style={{ position: 'absolute', top: -50, right: -50, width: 300, height: 300, background: 'rgba(255,255,255,0.03)', borderRadius: '50%' }} />
                <div style={{ position: 'relative', zIndex: 1 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                  <div className="dash-hero-inner">
                      <div>
-                        <h1 style={{ fontSize: 42, fontWeight: 950, letterSpacing: '-2px', marginBottom: 16 }}>Welcome back, {user.name.split(',')[0]}</h1>
-                        <div style={{ display: 'flex', gap: 16 }}>
+                        <h1 className="dash-hero-title">Welcome back, {user.name.split(',')[0]}</h1>
+                        <div className="dash-hero-tags">
                            <span style={{ padding: '6px 16px', background: 'rgba(255,255,255,0.1)', borderRadius: 12, fontSize: 13, fontWeight: 800 }}>{user.course}</span>
                            <span style={{ padding: '6px 16px', background: 'rgba(255,255,255,0.1)', borderRadius: 12, fontSize: 13, fontWeight: 800 }}>YEAR {user.yearLevel}</span>
                         </div>
@@ -45,7 +36,7 @@ export default function Dashboard() {
                </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 32, marginBottom: 48 }}>
+            <div className="dash-cards-grid">
                <Link href="/courses" className="modern-dash-card" style={{ textDecoration: 'none' }}>
                   <div className="card-icon blue">📚</div>
                   <h3 className="card-title">Academic Hub</h3>
@@ -63,7 +54,7 @@ export default function Dashboard() {
                </Link>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr', gap: 32 }}>
+            <div className="dash-bottom-grid">
 
                <div className="modern-card" style={{ padding: 40 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32 }}>
@@ -121,23 +112,54 @@ export default function Dashboard() {
             </div>
          </main>
 
-         <style jsx>{`
-         .modern-dash-card {
-            background: #fff; padding: 40px; border-radius: 32px; border: 1.5px solid #edf2f7;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 30px rgba(0,0,0,0.02);
-         }
-         .modern-dash-card:hover { transform: translateY(-12px); border-color: #3b82f6; box-shadow: 0 20px 40px rgba(59,130,246,0.1); }
-         
-         .card-icon { width: 64px; height: 64px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 32px; margin-bottom: 24px; }
-         .card-icon.blue { background: #eff6ff; }
-         .card-icon.gold { background: #fffbeb; }
-         .card-icon.green { background: #ecfdf5; }
-         
-         .card-title { font-size: 20px; fontWeight: 950; color: #1e293b; margin-bottom: 12px; }
-         .card-desc { font-size: 14px; fontWeight: 600; color: #94a3b8; line-height: 1.6; }
+          <style jsx>{`
+          .dash-main { max-width: 1400px; margin: 0 auto; padding: 24px 40px; }
+          .dash-hero {
+             background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%);
+             padding: 60px 50px; border-radius: 40px; color: #fff; margin-bottom: 48px;
+             position: relative; overflow: hidden; box-shadow: 0 20px 50px rgba(30,58,95,0.2);
+          }
+          .dash-hero-inner { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px; }
+          .dash-hero-title { font-size: 42px; font-weight: 950; letter-spacing: -2px; margin-bottom: 16px; }
+          .dash-hero-tags { display: flex; gap: 12px; flex-wrap: wrap; }
+          .dash-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-bottom: 48px; }
+          .dash-bottom-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 32px; }
 
-         .modern-card { background: #fff; border-radius: 40px; border: 1.5px solid #edf2f7; box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
-      `}</style>
+          .modern-dash-card {
+             background: #fff; padding: 40px; border-radius: 32px; border: 1.5px solid #edf2f7;
+             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+          }
+          .modern-dash-card:hover { transform: translateY(-12px); border-color: #3b82f6; box-shadow: 0 20px 40px rgba(59,130,246,0.1); }
+          
+          .card-icon { width: 64px; height: 64px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 32px; margin-bottom: 24px; }
+          .card-icon.blue { background: #eff6ff; }
+          .card-icon.gold { background: #fffbeb; }
+          .card-icon.green { background: #ecfdf5; }
+          
+          .card-title { font-size: 20px; font-weight: 950; color: #1e293b; margin-bottom: 12px; }
+          .card-desc { font-size: 14px; font-weight: 600; color: #94a3b8; line-height: 1.6; }
+
+          .modern-card { background: #fff; border-radius: 40px; border: 1.5px solid #edf2f7; box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
+
+          @media (max-width: 1024px) {
+             .dash-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+             .dash-bottom-grid { grid-template-columns: 1fr; }
+             .dash-hero { padding: 40px 32px; border-radius: 24px; }
+             .dash-hero-title { font-size: 28px; letter-spacing: -1px; }
+          }
+          @media (max-width: 768px) {
+             .dash-main { padding: 16px; }
+             .dash-cards-grid { grid-template-columns: 1fr; gap: 16px; }
+             .dash-bottom-grid { grid-template-columns: 1fr; gap: 16px; }
+             .dash-hero { padding: 28px 20px; border-radius: 20px; margin-bottom: 24px; }
+             .dash-hero-inner { flex-direction: column; align-items: flex-start; }
+             .dash-hero-title { font-size: 22px; margin-bottom: 8px; }
+             .modern-dash-card { padding: 24px; border-radius: 20px; }
+             .modern-card { border-radius: 20px; padding: 24px !important; }
+             .card-icon { width: 48px; height: 48px; font-size: 24px; margin-bottom: 16px; }
+             .card-title { font-size: 16px; }
+          }
+       `}</style>
       </div>
    );
 }

@@ -40,7 +40,7 @@ export default function Schedule() {
     <div className="animate-in" style={{ background: '#f8fafc', minHeight: '100vh', paddingBottom: 100 }}>
       <Topbar title="Academic Timetable" subtitle="Strategic oversight of weekly instructional sessions and infrastructure allocation." />
 
-      <main className="page-content" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 40px' }}>
+      <main className="page-content schedule-main">
 
         {user?.role === 'admin' && (
           <div className="modern-admin-card" style={{ marginBottom: 48, padding: 32, background: '#eff6ff', border: '1.5px solid #dbeafe', color: '#1e3a5f' }}>
@@ -61,7 +61,7 @@ export default function Schedule() {
                 <div style={{ flex: 1, height: 1, background: '#edf2f7', marginLeft: 16 }} />
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))', gap: 24 }}>
+              <div className="grid-cols-schedule responsive-grid">
                 {dayItems.map(item => (
                   <div key={item.id} className="schedule-card">
                     <div className="time-strip">
@@ -111,6 +111,18 @@ export default function Schedule() {
          
          .status-indicator { position: absolute; top: 0; right: 0; width: 6px; height: 100%; background: #edf2f7; transition: 0.3s; }
          .schedule-card:hover .status-indicator.active { background: #1e3a5f; }
+
+         .schedule-main { max-width: 1400px; margin: 0 auto; padding: 24px 40px; }
+
+         @media (max-width: 1024px) {
+            .schedule-main { padding: 16px; }
+         }
+         @media (max-width: 768px) {
+            .schedule-card { padding: 16px; gap: 16px; border-radius: 20px; }
+            .time-strip { min-width: 80px; padding: 12px; border-radius: 12px; }
+            .subject-title { font-size: 15px; }
+         }
+
 
          @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
          .animate-slide-up { animation: slideUp 0.6s cubic-bezier(0, 0, 0.2, 1) backwards; }

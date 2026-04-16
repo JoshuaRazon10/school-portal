@@ -24,7 +24,7 @@ export default function Profile() {
 
     setUploading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/profile/upload-photo', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/profile/upload-photo`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
         body: formData,
@@ -61,62 +61,37 @@ export default function Profile() {
       <main className="page-content" style={{ maxWidth: 1200, margin: '0 auto' }}>
 
         {/* Modern Hero Section */}
-        <div style={{ position: 'relative', marginBottom: 120 }}>
-          <div style={{
-            height: 240,
-            background: 'linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%)',
-            borderRadius: 32,
-            overflow: 'hidden',
-            position: 'relative',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
-          }}>
-            <div style={{ position: 'absolute', inset: 0, opacity: 0.1, background: 'radial-gradient(circle at 20% 30%, #fff 0%, transparent 50%)' }} />
-            <div style={{ position: 'absolute', bottom: 40, left: 240 }}>
-              <h1 style={{ color: '#fff', fontSize: 42, fontWeight: 950, letterSpacing: '-1.5px', marginBottom: 8 }}>{user?.name}</h1>
-              <p style={{ color: 'rgba(255,255,255,0.6)', fontWeight: 700, fontSize: 16 }}>{user?.course || 'Institutional Administration'}</p>
+        <div className="profile-hero-section">
+          <div className="profile-banner">
+            <div className="banner-overlay" />
+            <div className="banner-content">
+              <h1 className="banner-name">{user?.name}</h1>
+              <p className="banner-course">{user?.course || 'Institutional Administration'}</p>
             </div>
           </div>
 
-          {/* Floating Avatar Overlay */}
-          <div style={{ position: 'absolute', top: 120, left: 60 }}>
-            <div style={{ position: 'relative', cursor: 'pointer' }} onClick={handlePhotoClick}>
-              <div style={{
-                width: 160, height: 160, borderRadius: '50%', border: '8px solid #f0f4f8',
-                overflow: 'hidden', background: '#fff', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)'
-              }}>
-                {user?.photo_url ? (
-                  <img src={user.photo_url} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                ) : (
-                  <div style={{ width: '100%', height: '100%', background: '#1e3a5f', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 50, fontWeight: 900 }}>
-                    {user?.name?.[0]}
-                  </div>
-                )}
-              </div>
-              <div style={{
-                position: 'absolute', bottom: 10, right: 10,
-                background: '#1e3a5f', color: '#fff', width: 44, height: 44,
-                borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '4px solid #f0f4f8'
-              }}>
-                📷
-              </div>
-              {uploading && (
-                <div style={{ position: 'absolute', inset: 0, background: 'rgba(255,255,255,0.7)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 900 }}>
-                  SYNCING...
-                </div>
+          <div className="avatar-container" onClick={handlePhotoClick}>
+            <div className="avatar-wrapper">
+              {user?.photo_url ? (
+                <img src={user.photo_url} alt="Profile" className="avatar-image" />
+              ) : (
+                <div className="avatar-placeholder">{user?.name?.[0]}</div>
               )}
             </div>
+            <div className="avatar-edit-badge">📷</div>
+            {uploading && <div className="avatar-upload-overlay">SYNCING...</div>}
           </div>
         </div>
 
         <input type="file" ref={fileInputRef} onChange={handleFileChange} hidden accept="image/*" />
 
         {/* Content Matrix */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 40, alignItems: 'start' }}>
+        <div className="profile-content-grid">
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+          <div className="profile-main-column">
             {/* Scholastic Status Cards */}
             {user?.role === 'student' && (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+              <div className="grid-cols-3 responsive-grid">
                 <div className="stat-card">
                   <div className="stat-icon">🎓</div>
                   <div>
@@ -143,14 +118,14 @@ export default function Profile() {
 
             {/* Identity Ledger */}
             <div className="modern-card">
-              <h3 style={{ fontSize: 22, fontWeight: 950, marginBottom: 32, letterSpacing: '-0.5px' }}>Institutional Identity Ledger</h3>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40 }}>
+              <h3 className="ledger-title">Institutional Identity Ledger</h3>
+              <div className="ledger-grid">
                 {profileItems.map((item, i) => (
-                  <div key={i} style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
-                    <div style={{ width: 54, height: 54, borderRadius: 16, background: '#f8fafc', border: '1.5px solid #edf2f7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>{item.icon}</div>
+                  <div key={i} className="ledger-item">
+                    <div className="ledger-icon">{item.icon}</div>
                     <div>
-                      <div style={{ fontSize: 11, fontWeight: 800, color: '#94a3b8', textTransform: 'uppercase', marginBottom: 4 }}>{item.label}</div>
-                      <div style={{ fontSize: 15, fontWeight: 800, color: '#1e293b' }}>{item.value}</div>
+                      <div className="ledger-label">{item.label}</div>
+                      <div className="ledger-value">{item.value}</div>
                     </div>
                   </div>
                 ))}
@@ -159,11 +134,11 @@ export default function Profile() {
           </div>
 
           {/* Security Sidebar */}
-          <div style={{ position: 'sticky', top: 120 }}>
-            <div className="modern-card" style={{ background: '#fff', border: '2px solid #edf2f7' }}>
+          <div className="security-sidebar">
+            <div className="modern-card security-card">
               <div style={{ fontSize: 48, marginBottom: 24 }}>🛡️</div>
               <h3 style={{ fontSize: 20, fontWeight: 950, marginBottom: 16 }}>Security Management</h3>
-              <p style={{ color: '#64748b', fontSize: 14, lineHeight: 1.6, marginBottom: 32, fontWeight: 600 }}>Update your institutional security keys to maintain secure access to the portal.</p>
+              <p className="security-desc">Update your institutional security keys to maintain secure access to the portal.</p>
               <button onClick={() => setShowPassModal(true)} className="pass-btn">
                 Update Security Keys
               </button>
@@ -194,7 +169,7 @@ export default function Profile() {
                 }
 
                 try {
-                  const res = await fetch('http://localhost:5000/api/profile/change-password', {
+                  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/profile/change-password`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                     body: JSON.stringify({ oldPassword: oldPass, newPassword: newPass })
@@ -246,6 +221,32 @@ export default function Profile() {
 
          .modern-card { background: #fff; padding: 40px; border-radius: 32px; box-shadow: 0 10px 25px rgba(0,0,0,0.02); border: 1.5px solid #edf2f7; }
          
+         .profile-hero-section { position: relative; margin-bottom: 120px; }
+         .profile-banner { height: 240px; background: linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%); border-radius: 32px; overflow: hidden; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+         .banner-overlay { position: absolute; inset: 0; opacity: 0.1; background: radial-gradient(circle at 20% 30%, #fff 0%, transparent 50%); }
+         .banner-content { position: absolute; bottom: 40px; left: 240px; }
+         .banner-name { color: #fff; font-size: 42px; font-weight: 950; letter-spacing: -1.5px; margin-bottom: 8px; }
+         .banner-course { color: rgba(255,255,255,0.6); font-weight: 700; font-size: 16px; }
+
+         .avatar-container { position: absolute; top: 120px; left: 60px; cursor: pointer; }
+         .avatar-wrapper { width: 160px; height: 160px; border-radius: 50%; border: 8px solid #f0f4f8; overflow: hidden; background: #fff; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+         .avatar-image { width: 100%; height: 100%; object-fit: cover; }
+         .avatar-placeholder { width: 100%; height: 100%; background: #1e3a5f; color: #fff; display: flex; align-items: center; justify-content: center; fontSize: 50px; font-weight: 900; }
+         .avatar-edit-badge { position: absolute; bottom: 10px; right: 10px; background: #1e3a5f; color: #fff; width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 4px solid #f0f4f8; }
+         .avatar-upload-overlay { position: absolute; inset: 0; background: rgba(255,255,255,0.7); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; }
+
+         .profile-content-grid { display: grid; grid-template-columns: 1fr 380px; gap: 40px; align-items: start; }
+         .profile-main-column { display: flex; flexDirection: column; gap: 40px; }
+         .ledger-title { font-size: 22px; font-weight: 950; margin-bottom: 32px; letter-spacing: -0.5px; }
+         .ledger-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+         .ledger-item { display: flex; gap: 20px; align-items: center; }
+         .ledger-icon { width: 54px; height: 54px; border-radius: 16px; background: #f8fafc; border: 1.5px solid #edf2f7; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+         .ledger-label { font-size: 11px; font-weight: 800; color: #94a3b8; text-transform: uppercase; margin-bottom: 4px; }
+         .ledger-value { font-size: 15px; font-weight: 800; color: #1e293b; }
+
+         .security-sidebar { position: sticky; top: 120px; }
+         .security-desc { color: #64748b; font-size: 14px; line-height: 1.6; margin-bottom: 32px; font-weight: 600; }
+
          .pass-btn {
             width: 100%; padding: 18px; border-radius: 18px; border: none;
             background: #1e3a5f; color: #fff; font-weight: 900; font-size: 14px;
@@ -257,6 +258,26 @@ export default function Profile() {
          .form-item label { display: block; font-size: 11px; font-weight: 900; color: #94a3b8; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px; }
          .form-item input { width: 100%; padding: 18px 24px; border-radius: 16px; border: 1.5px solid #e2e8f0; background: #f8fafc; font-size: 15px; font-weight: 700; outline: none; transition: 0.3s; }
          .form-item input:focus { border-color: #1e3a5f; background: #fff; box-shadow: 0 0 0 5px rgba(30,58,95,0.05); }
+
+         @media (max-width: 1024px) {
+            .profile-hero-section { margin-bottom: 160px; }
+            .profile-content-grid { grid-template-columns: 1fr; gap: 32px; }
+            .security-sidebar { position: static; }
+            .banner-content { left: 40px; bottom: 80px; }
+            .banner-name { font-size: 28px; }
+            .avatar-container { top: 160px; left: 50%; transform: translateX(-50%); }
+         }
+
+         @media (max-width: 768px) {
+            .profile-banner { height: 180px; border-radius: 20px; }
+            .banner-content { text-align: center; left: 0; right: 0; bottom: 100px; padding: 0 20px; }
+            .banner-name { font-size: 24px; }
+            .avatar-wrapper { width: 120px; height: 120px; border: 6px solid #f0f4f8; }
+            .avatar-container { top: 120px; }
+            .ledger-grid { grid-template-columns: 1fr; gap: 24px; }
+            .modern-card { padding: 24px; }
+         }
+
       `}</style>
     </div>
   );

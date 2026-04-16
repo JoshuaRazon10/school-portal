@@ -49,42 +49,42 @@ export default function Assignments() {
 
       <main className="page-content" style={{ maxWidth: 1200, margin: '0 auto' }}>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 40 }}>
+        <div className="assignments-header mobile-stack">
           <div>
-            <h1 style={{ fontSize: 36, fontWeight: 950, letterSpacing: '-1.5px', color: '#1e3a5f' }}>My Assignments</h1>
-            <p style={{ color: '#64748b', fontWeight: 600, fontSize: 14 }}>Academic Cycle 2025-2026 · {user?.course}</p>
+            <h1 className="header-title">My Assignments</h1>
+            <p className="header-subtitle">Academic Cycle 2025-2026 · {user?.course}</p>
           </div>
-          <div style={{ display: 'flex', gap: 12 }}>
-            <div style={{ background: '#fff', padding: '10px 20px', borderRadius: 16, border: '1.5px solid #edf2f7', fontSize: 13, fontWeight: 800 }}>
-              <span style={{ color: '#94a3b8' }}>PENDING:</span> {assignments.filter(a => a.status !== 'submitted').length}
+          <div className="stats-pills">
+            <div className="stat-pill">
+              <span className="stat-label">PENDING:</span> {assignments.filter(a => a.status !== 'submitted').length}
             </div>
-            <div style={{ background: '#1e3a5f', color: '#fff', padding: '10px 20px', borderRadius: 16, fontSize: 13, fontWeight: 800 }}>
+            <div className="stat-pill dark">
               COMPLETED: {assignments.filter(a => a.status === 'submitted').length}
             </div>
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 40, alignItems: 'start' }}>
+        <div className="assignments-grid">
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div className="missions-column">
             {assignments.map((item) => {
               const p = getPriorityInfo(item.priority);
               return (
                 <div key={item.id} className="mission-card" style={{ borderLeft: `6px solid ${p.color}` }}>
-                  <div style={{ width: 64, height: 64, borderRadius: '50%', background: '#f8fafc', border: '1.5px solid #edf2f7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28 }}>
+                  <div className="mission-icon">
                     {p.icon}
                   </div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 4 }}>
-                      <span style={{ fontSize: 11, fontWeight: 900, color: '#1e3a5f', textTransform: 'uppercase', letterSpacing: 0.5 }}>{item.course_code}</span>
-                      <span style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8' }}>Due: {item.due_date}</span>
+                  <div className="mission-info">
+                    <div className="mission-meta">
+                      <span className="course-code">{item.course_code}</span>
+                      <span className="due-date">Due: {item.due_date}</span>
                     </div>
-                    <h3 style={{ fontSize: 18, fontWeight: 900, color: '#111827' }}>{item.title}</h3>
-                    <div style={{ display: 'flex', gap: 12, marginTop: 12 }}>
-                      <span style={{ background: item.status === 'submitted' ? '#ecfdf5' : '#eff6ff', color: item.status === 'submitted' ? '#059669' : '#1e3a5f', padding: '4px 10px', borderRadius: 8, fontSize: 10, fontWeight: 900, textTransform: 'uppercase' }}>
+                    <h3 className="mission-title">{item.title}</h3>
+                    <div className="mission-badges">
+                      <span className={`status-badge ${item.status}`}>
                         {item.status}
                       </span>
-                      <span style={{ background: '#f8fafc', border: '1px solid #edf2f7', color: '#64748b', padding: '4px 10px', borderRadius: 8, fontSize: 10, fontWeight: 900, textTransform: 'uppercase' }}>
+                      <span className="priority-badge">
                         {p.label}
                       </span>
                     </div>
@@ -95,10 +95,7 @@ export default function Assignments() {
             })}
 
             {assignments.length === 0 && (
-              <div style={{
-                padding: '120px 0', textAlign: 'center', background: '#fff', borderRadius: 32,
-                border: '2px dashed #edf2f7', color: '#94a3b8'
-              }}>
+              <div className="empty-state">
                 <div style={{ fontSize: 64, marginBottom: 20 }}>🛰️</div>
                 <h3 style={{ fontSize: 20, fontWeight: 900, color: '#1e293b' }}>No Incoming Missions</h3>
                 <p style={{ fontWeight: 600 }}>All laboratory and research tasks are currently synchronized.</p>
@@ -106,9 +103,8 @@ export default function Assignments() {
             )}
           </div>
 
-          {/* Metrics Sidebar */}
-          <div style={{ position: 'sticky', top: 120, display: 'flex', flexDirection: 'column', gap: 24 }}>
-            <div style={{ background: '#fff', padding: 32, borderRadius: 32, border: '1.5px solid #edf2f7' }}>
+          <div className="stats-sidebar">
+            <div className="modern-card">
               <h4 style={{ fontSize: 16, fontWeight: 950, marginBottom: 24 }}>Mission Stats</h4>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -143,13 +139,53 @@ export default function Assignments() {
             border: 1.5px solid #edf2f7;
          }
          .mission-card:hover { transform: translateX(12px) scale(1.01); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+
+         .assignments-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; gap: 24px; }
+         .header-title { font-size: 36px; font-weight: 950; letter-spacing: -1.5px; color: #1e3a5f; }
+         .header-subtitle { color: #64748b; font-weight: 600; font-size: 14px; }
+         .stats-pills { display: flex; gap: 12px; }
+         .stat-pill { background: #fff; padding: 10px 20px; border-radius: 16px; border: 1.5px solid #edf2f7; fontSize: 13px; font-weight: 800; }
+         .stat-pill.dark { background: #1e3a5f; color: #fff; border: none; }
+         .stat-label { color: #94a3b8; }
+
+         .assignments-grid { display: grid; grid-template-columns: 1fr 300px; gap: 40px; align-items: start; }
+         .missions-column { display: flex; flex-direction: column; gap: 16px; }
+         .mission-icon { width: 64px; height: 64px; border-radius: 50%; background: #f8fafc; border: 1.5px solid #edf2f7; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; }
+         .mission-info { flex: 1; }
+         .mission-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+         .course-code { font-size: 11px; font-weight: 900; color: #1e3a5f; text-transform: uppercase; letter-spacing: 0.5px; }
+         .due-date { font-size: 11px; font-weight: 700; color: #94a3b8; }
+         .mission-title { font-size: 18px; font-weight: 900; color: #111827; }
+         .mission-badges { display: flex; gap: 12px; margin-top: 12px; }
+         .status-badge { padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: 900; text-transform: uppercase; }
+         .status-badge.submitted { background: #ecfdf5; color: #059669; }
+         .status-badge.pending, .status-badge.in-progress { background: #eff6ff; color: #1e3a5f; }
+         .priority-badge { background: #f8fafc; border: 1px solid #edf2f7; color: #64748b; padding: 4px 10px; border-radius: 8px; font-size: 10px; font-weight: 900; text-transform: uppercase; }
          
+         .empty-state { padding: 80px 20px; text-align: center; background: #fff; border-radius: 32px; border: 2.5px dashed #edf2f7; color: #94a3b8; }
+
          .btn-action {
             background: #f8fafc; border: 1.5px solid #edf2f7; padding: 12px 20px;
             border-radius: 12px; font-size: 11px; font-weight: 950; color: #1e3a5f;
             cursor: pointer; transition: 0.3s;
          }
          .btn-action:hover { background: #1e3a5f; color: #fff; border-color: #1e3a5f; }
+
+         @media (max-width: 1024px) {
+            .assignments-grid { grid-template-columns: 1fr; }
+            .assignments-header { flex-direction: column; align-items: flex-start; }
+            .stats-sidebar { position: static; width: 100%; }
+            .mission-card { padding: 24px; }
+         }
+
+         @media (max-width: 768px) {
+            .mission-card { flex-direction: column; text-align: center; }
+            .mission-meta { justify-content: center; }
+            .mission-badges { justify-content: center; }
+            .stats-pills { width: 100%; flex-direction: column; }
+            .stat-pill { text-align: center; }
+         }
+
       `}</style>
     </div>
   );
