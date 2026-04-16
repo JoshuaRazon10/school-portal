@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import Topbar from '@/components/Topbar/Topbar';
 import { api } from '@/lib/api';
+import { useToast } from '@/context/ToastContext';
 import Modal from '@/components/Modal/Modal';
 
 interface Comment {
@@ -29,6 +30,7 @@ interface Announcement {
 
 export default function AdminNotices() {
    const { user } = useAuth();
+   const { showToast } = useToast();
    const [notices, setNotices] = useState<Announcement[]>([]);
    const [formData, setFormData] = useState({
       title: '', content: '', category: 'Institutional', important: false,
@@ -98,10 +100,12 @@ export default function AdminNotices() {
 
          const res = await api.post('/announcements', fd);
          if (res.success) {
-            showAlert('Protocol Authorized', 'The social institutional notice has been broadcasted and synchronized across all feeds.', 'success');
+            showToast('Institutional notice broadcasted successfully.', 'success');
             setFormData({ title: '', content: '', category: 'Institutional', important: false });
             setImageFile(null); setPreviewUrl(null); setShowForm(false);
             loadNotices();
+         } else {
+            showToast(res.message || 'Failed to dispatch institutional notice.', 'error');
          }
       } finally {
          setIsSubmitting(false);

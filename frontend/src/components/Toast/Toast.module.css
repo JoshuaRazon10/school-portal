@@ -1,17 +1,16 @@
 .toast {
-  position: fixed;
-  bottom: 32px;
-  right: 32px;
+  position: relative;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   gap: 16px;
   padding: 16px 20px;
-  border-radius: var(--radius-md);
-  background: var(--bg-card);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 4px 12px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--divider);
-  z-index: 1000;
-  min-width: 320px;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border: 1.5px solid #edf2f7;
+  z-index: 10000;
+  min-width: 340px;
   max-width: 450px;
   transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
   backdrop-filter: blur(10px);
@@ -53,10 +52,11 @@
 }
 
 .message {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-main);
+  font-size: 13px;
+  font-weight: 850;
+  color: #1e3a5f;
   margin: 0;
+  letter-spacing: -0.2px;
 }
 
 .closeBtn {

@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import Topbar from '@/components/Topbar/Topbar';
 import { api } from '@/lib/api';
+import { useToast } from '@/context/ToastContext';
 import Modal from '@/components/Modal/Modal';
 
 interface Subject {
@@ -38,6 +39,7 @@ for (let mins = 7 * 60; mins <= 20 * 60; mins += 30) {
 
 export default function AdminSubjects() {
   const { user } = useAuth();
+  const { showToast } = useToast();
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAddForm, setShowAddForm] = useState(false);
@@ -120,12 +122,13 @@ export default function AdminSubjects() {
       showAlert('Schedule Conflict', 'The selected time range overlaps with an existing subject specification.', 'warning');
       return;
     }
-    const url = editingSubject ? `/admin/update-subject/${editingSubject.id}` : '/admin/create-subject';
     const res = await (api as any)[editingSubject ? 'put' : 'post'](url, formData);
     if (res.success) {
-      showAlert('Curriculum Entry Synchronized', `Institutional spec "${formData.code}" has been finalized.`, 'success');
+      showToast(`Institutional spec "${formData.code}" has been finalized.`, 'success');
       resetForm();
       loadSubjects();
+    } else {
+      showToast(res.message || 'Curriculum synchronization failed.', 'error');
     }
   };
 

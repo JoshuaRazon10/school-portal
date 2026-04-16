@@ -4,6 +4,7 @@ import { useAuth } from '@/context/AuthContext';
 import Topbar from '@/components/Topbar/Topbar';
 import { api } from '@/lib/api';
 import { useRouter } from 'next/navigation';
+import { useToast } from '@/context/ToastContext';
 import Modal from '@/components/Modal/Modal';
 
 interface Student {
@@ -24,6 +25,7 @@ interface Subject {
 
 export default function AdminStudents() {
    const { user } = useAuth();
+   const { showToast } = useToast();
    const router = useRouter();
    const [students, setStudents] = useState<Student[]>([]);
    const [searchQuery, setSearchQuery] = useState('');
@@ -117,7 +119,7 @@ export default function AdminStudents() {
             if (res.success) {
                setSelectedStudent(null);
                loadData();
-               showAlert('Identity Purged', 'Record has been cleared from archives.', 'success');
+               showToast('Institutional identity purged from archives.', 'success');
             }
          }
       });
@@ -219,7 +221,7 @@ export default function AdminStudents() {
                                     <p style={{ fontSize: 13, color: '#94a3b8', fontWeight: 600 }}>Synchronize academic achievements with the central system.</p>
                                  </div>
                               </div>
-                              <form onSubmit={(e) => { e.preventDefault(); api.post('/admin/set-grade', { ...gradeData, userId: selectedStudent.id }).then(() => showAlert('Grade Integrated', 'Performance data updated.', 'success')); }} style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+                              <form onSubmit={(e) => { e.preventDefault(); api.post('/admin/set-grade', { ...gradeData, userId: selectedStudent.id }).then((r) => r.success ? showToast('Performance data integrated.', 'success') : showToast(r.message, 'error')); }} style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
                                  <div className="admin-form-group">
                                     <label>Target Academic Load</label>
                                     <div style={{ position: 'relative' }}>
