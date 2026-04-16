@@ -162,15 +162,15 @@ export default function AdminStudents() {
                         borderTopLeftRadius: 40, borderTopRightRadius: 40
                      }}>
                         <button onClick={() => setSelectedStudent(null)} style={{
-                           position: 'absolute', top: 32, right: 32, background: 'rgba(255,255,255,0.1)',
-                           border: 'none', width: 44, height: 44, borderRadius: '50%', color: '#fff',
-                           fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10
+                           position: 'absolute', top: 20, right: 20, background: 'rgba(255,255,255,0.1)',
+                           border: 'none', width: 40, height: 40, borderRadius: '50%', color: '#fff',
+                           fontSize: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10
                         }}>✕</button>
 
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 32, position: 'relative' }}>
+                        <div className="mobile-stack" style={{ display: 'flex', alignItems: 'center', gap: 32, position: 'relative' }}>
                            <div style={{
-                              width: 90, height: 90, borderRadius: '50%', border: '4px solid rgba(255,255,255,0.2)',
-                              overflow: 'hidden', background: '#fff'
+                              width: 80, height: 80, borderRadius: '50%', border: '4px solid rgba(255,255,255,0.2)',
+                              overflow: 'hidden', background: '#fff', flexShrink: 0
                            }}>
                               {selectedStudent.photo_url ? (
                                  <img src={selectedStudent.photo_url} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -332,37 +332,37 @@ export default function AdminStudents() {
          <div className="animate-in" style={{ background: '#f8fafc', minHeight: '100vh', paddingBottom: 100 }}>
             <Topbar title="Identity Management Console" subtitle="Strategic oversight of institutional records and scholastic flows." />
 
-            <main className="page-content" style={{ maxWidth: 1600, margin: '0 auto', padding: '0 40px' }}>
-               <div className="modern-admin-card" style={{ padding: 48 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 40 }}>
-                     <h2 style={{ fontSize: 32, fontWeight: 950, color: '#1e3a5f', letterSpacing: '-1.5px' }}>Identity Archives</h2>
-                     <div style={{ display: 'flex', gap: 16 }}>
-                        <button onClick={() => router.push('/admin/students/registration')} className="admin-action-btn primary" style={{ flexDirection: 'row', padding: '16px 24px' }}>
+            <main className="page-content" style={{ maxWidth: 1600, margin: '0 auto', padding: '0 20px' }}>
+               <div className="modern-admin-card" style={{ padding: '24px 20px' }}>
+                  <div className="mobile-stack" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32, gap: 20 }}>
+                     <h2 style={{ fontSize: 28, fontWeight: 950, color: '#1e3a5f', letterSpacing: '-1.5px' }}>Identity Archives</h2>
+                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+                        <button onClick={() => router.push('/admin/students/registration')} className="admin-action-btn primary" style={{ flexDirection: 'row', padding: '12px 20px' }}>
                            <span>👤 Admit New Student</span>
                         </button>
-                        <button onClick={() => router.push('/admin/student-registry')} className="admin-action-btn secondary" style={{ flexDirection: 'row', padding: '16px 24px' }}>
+                        <button onClick={() => router.push('/admin/student-registry')} className="admin-action-btn secondary" style={{ flexDirection: 'row', padding: '12px 20px' }}>
                            <span>📁 Full Registry Archive</span>
                         </button>
                      </div>
                   </div>
 
-                  <div style={{ position: 'relative', marginBottom: 40 }}>
+                  <div style={{ position: 'relative', marginBottom: 32 }}>
                      <input
                         className="admin-search-input"
                         placeholder="Search by name or ID..."
                         value={searchQuery}
                         onChange={e => setSearchQuery(e.target.value)}
-                        style={{ padding: '24px 24px 24px 70px', fontSize: 18, borderRadius: 24 }}
+                        style={{ padding: '20px 20px 20px 60px', fontSize: 16, borderRadius: 20 }}
                      />
-                     <span style={{ position: 'absolute', left: 26, top: '50%', transform: 'translateY(-50%)', fontSize: 24, opacity: 0.3 }}>🔍</span>
+                     <span style={{ position: 'absolute', left: 22, top: '50%', transform: 'translateY(-50%)', fontSize: 20, opacity: 0.3 }}>🔍</span>
                   </div>
 
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 24, padding: '0 20px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}>
                      <h3 className="admin-sublabel">Registry Directory</h3>
-                     <span style={{ fontSize: 12, fontWeight: 950, color: '#1e3a5f', background: '#eff6ff', padding: '6px 16px', borderRadius: 99 }}>{filteredStudents.length} ACTIVE IDENTITIES</span>
+                     <span style={{ fontSize: 10, fontWeight: 950, color: '#1e3a5f', background: '#eff6ff', padding: '4px 12px', borderRadius: 99 }}>{filteredStudents.length} ACTIVE</span>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: 24 }}>
+                  <div className="responsive-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 16 }}>
                      {filteredStudents.map(s => (
                         <div key={s.id} onClick={() => setSelectedStudent(s)} className={`admin-registry-item-card ${selectedStudent?.id === s.id ? 'active' : ''}`}>
                            <div style={{ width: 64, height: 64, borderRadius: '50%', background: '#f1f5f9', color: '#1e3a5f', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, fontWeight: 950 }}>

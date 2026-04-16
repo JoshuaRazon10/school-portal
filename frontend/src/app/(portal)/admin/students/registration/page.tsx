@@ -58,21 +58,21 @@ export default function StudentRegistration() {
     <div className="animate-in" style={{ background: '#f8fafc', minHeight: '100vh', paddingBottom: 100 }}>
       <Topbar title="New Admissions Entry" subtitle="Official registration of student members into the institutional portal archives." />
 
-      <main className="page-content" style={{ maxWidth: 1000, margin: '0 auto', padding: '0 40px' }}>
-        <button onClick={() => router.push('/admin/students')} style={{ background: 'transparent', border: 'none', color: '#64748b', fontWeight: 800, fontSize: 13, display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', marginBottom: 40 }}>
+      <main className="page-content" style={{ maxWidth: 1000, margin: '0 auto', padding: '0 20px' }}>
+        <button onClick={() => router.push('/admin/students')} style={{ background: 'transparent', border: 'none', color: '#64748b', fontWeight: 800, fontSize: 12, display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', marginBottom: 24 }}>
           <span>←</span> RETURN TO RECORD CENTER
         </button>
 
-        <div className="modern-card" style={{ padding: 60 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 20, marginBottom: 60 }}>
-            <div style={{ width: 64, height: 64, borderRadius: 20, background: '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32 }}>🏛️</div>
+        <div className="modern-card" style={{ padding: '40px 24px' }}>
+          <div className="mobile-stack" style={{ display: 'flex', alignItems: 'center', gap: 20, marginBottom: 40 }}>
+            <div style={{ width: 50, height: 50, borderRadius: 16, background: '#eff6ff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24 }}>🏛️</div>
             <div>
-              <h2 style={{ fontSize: 26, fontWeight: 950, color: '#1e3a5f', letterSpacing: '-1px' }}>Admissions Specification Form</h2>
-              <p style={{ color: '#94a3b8', fontWeight: 700, fontSize: 14 }}>Establish a new academic identity with permanent archival records.</p>
+              <h2 style={{ fontSize: 22, fontWeight: 950, color: '#1e3a5f', letterSpacing: '-0.5px' }}>Admissions Specification Form</h2>
+              <p style={{ color: '#94a3b8', fontWeight: 700, fontSize: 12 }}>Establish a new academic identity with permanent archival records.</p>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40 }}>
+          <form onSubmit={handleSubmit} className="mobile-stack" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
 
             <div className="admin-form-group" style={{ gridColumn: 'span 2' }}>
               <label>Full Name (Official Record)</label>

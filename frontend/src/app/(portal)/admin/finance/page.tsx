@@ -174,38 +174,38 @@ export default function AdminFinance() {
                 }}>
                     <div className="modern-admin-card animate-pop" style={{
                         width: '100%', maxWidth: 1200, padding: 0,
-                        height: '85vh', display: 'flex', flexDirection: 'column',
+                        maxHeight: '94vh', display: 'flex', flexDirection: 'column',
                         boxShadow: '0 40px 100px rgba(0,0,0,0.3)', border: 'none',
                         borderRadius: 40, overflow: 'hidden', background: '#fff'
                     }}>
-                        <div style={{ padding: '60px 40px', background: 'linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%)', color: '#fff', position: 'relative', flexShrink: 0, borderTopLeftRadius: 40, borderTopRightRadius: 40 }}>
+                        <div style={{ padding: '40px 24px', background: 'linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%)', color: '#fff', position: 'relative', flexShrink: 0, borderTopLeftRadius: 40, borderTopRightRadius: 40 }}>
                             <button onClick={() => setSelectedStudent(null)} style={{
-                                position: 'absolute', top: 32, right: 32, background: 'rgba(255,255,255,0.1)',
-                                border: 'none', width: 44, height: 44, borderRadius: '50%', color: '#fff',
-                                fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10
+                                position: 'absolute', top: 20, right: 20, background: 'rgba(255,255,255,0.1)',
+                                border: 'none', width: 40, height: 40, borderRadius: '50%', color: '#fff',
+                                fontSize: 16, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10
                             }}>✕</button>
 
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-                                    <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, fontWeight: 950, backdropFilter: 'blur(10px)', border: '1.5px solid rgba(255,255,255,0.2)' }}>
+                            <div className="mobile-stack" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 24 }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+                                    <div style={{ width: 64, height: 64, borderRadius: '50%', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, fontWeight: 950, backdropFilter: 'blur(10px)', border: '1.5px solid rgba(255,255,255,0.2)', flexShrink: 0 }}>
                                         {selectedStudent.name[0]}
                                     </div>
                                     <div>
-                                        <h2 style={{ fontSize: 26, fontWeight: 950, letterSpacing: '-0.5px' }}>{selectedStudent.name}</h2>
-                                        <p style={{ opacity: 0.6, fontSize: 13, fontWeight: 700 }}>ID: {selectedStudent.studentId} · {selectedStudent.course}</p>
+                                        <h2 style={{ fontSize: 22, fontWeight: 950, letterSpacing: '-0.5px' }}>{selectedStudent.name}</h2>
+                                        <p style={{ opacity: 0.6, fontSize: 12, fontWeight: 700 }}>ID: {selectedStudent.studentId} · {selectedStudent.course}</p>
                                     </div>
                                 </div>
-                                <div style={{ textAlign: 'right' }}>
-                                    <div style={{ fontSize: 11, fontWeight: 950, opacity: 0.5, textTransform: 'uppercase', marginBottom: 8 }}>Outstanding Institutional Debt</div>
-                                    <div style={{ fontSize: 42, fontWeight: 950, color: Number(selectedStudent.balance) > 0 ? '#fca5a5' : '#86efac' }}>
+                                <div style={{ textAlign: 'left' }}>
+                                    <div style={{ fontSize: 9, fontWeight: 950, opacity: 0.5, textTransform: 'uppercase', marginBottom: 4 }}>Institutional Balance</div>
+                                    <div style={{ fontSize: 28, fontWeight: 950, color: Number(selectedStudent.balance) > 0 ? '#fca5a5' : '#86efac' }}>
                                         ₱{Number(selectedStudent.balance).toLocaleString('en-PH', { minimumFractionDigits: 2 })}
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 500px)', gap: 0, flex: 1, overflow: 'hidden', background: '#fff', borderBottomLeftRadius: 40, borderBottomRightRadius: 40 }}>
-                            <div className="workbench-scroller" style={{ padding: 48, borderRight: '1.5px solid #f1f5f9', overflowY: 'auto', minHeight: 0 }}>
+                        <div className="mobile-stack" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 500px)', gap: 0, flex: 1, overflowY: 'auto', background: '#fff', borderBottomLeftRadius: 40, borderBottomRightRadius: 40 }}>
+                            <div className="workbench-scroller" style={{ padding: '24px 20px', borderRight: '1.5px solid #f1f5f9', minHeight: 0 }}>
                                 {detailLoading ? (
                                     <div style={{ textAlign: 'center', padding: 100, opacity: 0.5 }}>Retrieving Fiscal Audit Trail...</div>
                                 ) : (
@@ -249,7 +249,7 @@ export default function AdminFinance() {
                                     </div>
                                 )}
                             </div>
-                            <div className="workbench-scroller" style={{ padding: 48, background: '#fcfdfe', overflowY: 'auto', minHeight: 0 }}>
+                            <div className="workbench-scroller" style={{ padding: '24px 20px', background: '#fcfdfe', minHeight: 0 }}>
                                 <h4 className="admin-sublabel" style={{ marginBottom: 32 }}>Transaction Audit Ledger</h4>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                                     {transactions.map(tx => (
@@ -271,42 +271,42 @@ export default function AdminFinance() {
             <div className="animate-in" style={{ background: '#f8fafc', minHeight: '100vh', paddingBottom: 100 }}>
                 <Topbar title="Global Financial Desk" subtitle="Strategic oversight of institutional account balances, payment synchronization, and fiscal auditing." />
 
-                <main className="page-content" style={{ maxWidth: 1600, margin: '0 auto', padding: '0 40px' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32, marginBottom: 60 }}>
-                        <div className="fiscal-card" style={{ background: 'linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%)', color: '#fff' }}>
-                            <div className="fiscal-label" style={{ color: 'rgba(255,255,255,0.6)' }}>Total Institutional Registry</div>
-                            <div className="fiscal-value">{students.length} <span style={{ fontSize: 16, opacity: 0.5 }}>IDENTITIES</span></div>
+                <main className="page-content" style={{ maxWidth: 1600, margin: '0 auto', padding: '0 20px' }}>
+                    <div className="mobile-stack" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, marginBottom: 40 }}>
+                        <div className="fiscal-card" style={{ background: 'linear-gradient(135deg, #1e3a5f 0%, #0f172a 100%)', color: '#fff', padding: 32 }}>
+                            <div className="fiscal-label" style={{ color: 'rgba(255,255,255,0.6)' }}>Institutional Registry</div>
+                            <div className="fiscal-value" style={{ fontSize: 24 }}>{students.length} <span style={{ fontSize: 13, opacity: 0.5 }}>IDENTITIES</span></div>
                         </div>
-                        <div className="fiscal-card" style={{ background: '#fff', border: '2px solid #fee2e2' }}>
-                            <div className="fiscal-label" style={{ color: '#ef4444' }}>Total Outstanding Arrears</div>
-                            <div className="fiscal-value" style={{ color: '#111827' }}>₱{totalOutstanding.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</div>
+                        <div className="fiscal-card" style={{ background: '#fff', border: '2px solid #fee2e2', padding: 32 }}>
+                            <div className="fiscal-label" style={{ color: '#ef4444' }}>Outstanding Arrears</div>
+                            <div className="fiscal-value" style={{ color: '#111827', fontSize: 24 }}>₱{totalOutstanding.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</div>
                         </div>
-                        <div className="fiscal-card" style={{ background: '#fff', border: '2px solid #edf2f7' }}>
-                            <div className="fiscal-label" style={{ color: '#3b82f6' }}>Active Payment Channels</div>
-                            <div className="fiscal-value" style={{ color: '#111827' }}>5 <span style={{ fontSize: 16, opacity: 0.5 }}>CHANNELS</span></div>
+                        <div className="fiscal-card" style={{ background: '#fff', border: '2px solid #edf2f7', padding: 32 }}>
+                            <div className="fiscal-label" style={{ color: '#3b82f6' }}>Payment Channels</div>
+                            <div className="fiscal-value" style={{ color: '#111827', fontSize: 24 }}>5 <span style={{ fontSize: 13, opacity: 0.5 }}>ACTIVE</span></div>
                         </div>
                     </div>
 
-                    <div className="modern-admin-card" style={{ padding: 48 }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 40 }}>
-                            <h2 style={{ fontSize: 32, fontWeight: 950, color: '#1e3a5f', letterSpacing: '-1.5px' }}>Financial Ledger Directory</h2>
-                            <div style={{ display: 'flex', gap: 16 }}>
-                                <button className="admin-workbench-btn" style={{ padding: '16px 32px' }}>📊 Fiscal Reports</button>
+                    <div className="modern-admin-card" style={{ padding: '24px 20px' }}>
+                        <div className="mobile-stack" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32, gap: 20 }}>
+                            <h2 style={{ fontSize: 28, fontWeight: 950, color: '#1e3a5f', letterSpacing: '-1.5px' }}>Financial Ledger Directory</h2>
+                            <div style={{ display: 'flex', gap: 12 }}>
+                                <button className="admin-workbench-btn" style={{ padding: '12px 24px', fontSize: 11 }}>📊 Fiscal Reports</button>
                             </div>
                         </div>
 
-                        <div style={{ position: 'relative', marginBottom: 40 }}>
+                        <div style={{ position: 'relative', marginBottom: 32 }}>
                             <input
                                 className="admin-search-input"
                                 placeholder="Search accounts by name or ID..."
                                 value={searchQuery}
                                 onChange={e => setSearchQuery(e.target.value)}
-                                style={{ padding: '24px 24px 24px 70px', fontSize: 18, borderRadius: 24 }}
+                                style={{ padding: '20px 20px 20px 60px', fontSize: 16, borderRadius: 20 }}
                             />
-                            <span style={{ position: 'absolute', left: 26, top: '50%', transform: 'translateY(-50%)', fontSize: 24, opacity: 0.3 }}>🔍</span>
+                            <span style={{ position: 'absolute', left: 22, top: '50%', transform: 'translateY(-50%)', fontSize: 20, opacity: 0.3 }}>🔍</span>
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(400px, 1fr))', gap: 24 }}>
+                        <div className="responsive-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 20 }}>
                             {loading ? (
                                 <div style={{ textAlign: 'center', padding: 40, opacity: 0.5, gridColumn: 'span 3' }}>Synchronizing Fiscal Records...</div>
                             ) : filtered.map(s => (

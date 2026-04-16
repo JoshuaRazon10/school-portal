@@ -164,19 +164,19 @@ export default function AdminSubjects() {
         confirmText="Authorize Specification"
       />
 
-      <main className="page-content" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 40px' }}>
+      <main className="page-content" style={{ maxWidth: 1400, margin: '0 auto', padding: '0 20px' }}>
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 48 }}>
-          <h2 style={{ fontSize: 32, fontWeight: 950, letterSpacing: '-1.5px', color: '#1e3a5f' }}>Registry Archives</h2>
-          <button onClick={() => showAddForm ? resetForm() : setShowAddForm(true)} className="admin-workbench-btn" style={{ background: showAddForm ? '#ef4444' : '#1e3a5f' }}>
-            {showAddForm ? '✕ ABORT OPERATION' : '+ DEFINE NEW OFFERING'}
+        <div className="mobile-stack" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32, gap: 20 }}>
+          <h2 style={{ fontSize: 28, fontWeight: 950, letterSpacing: '-1.5px', color: '#1e3a5f' }}>Registry Archives</h2>
+          <button onClick={() => showAddForm ? resetForm() : setShowAddForm(true)} className="admin-workbench-btn" style={{ background: showAddForm ? '#ef4444' : '#1e3a5f', width: 'auto' }}>
+            {showAddForm ? '✕ ABORT' : '+ NEW OFFERING'}
           </button>
         </div>
 
         {showAddForm && (
-          <div className="modern-admin-card animate-slide-up" style={{ padding: 48, marginBottom: 60 }}>
-            <h3 className="admin-sublabel" style={{ marginBottom: 40 }}>Institutional subject specification</h3>
-            <form onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32 }}>
+          <div className="modern-admin-card animate-slide-up" style={{ padding: '32px 20px', marginBottom: 40 }}>
+            <h3 className="admin-sublabel" style={{ marginBottom: 32 }}>Institutional subject specification</h3>
+            <form onSubmit={handleSubmit} className="mobile-stack" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
               <div className="admin-form-group">
                 <label>Unique Identification (Code)</label>
                 <input required value={formData.code} onChange={e => setFormData({ ...formData, code: e.target.value.toUpperCase() })} placeholder="e.g. CS311" />
@@ -194,7 +194,7 @@ export default function AdminSubjects() {
                 <input required value={formData.teacher} onChange={e => setFormData({ ...formData, teacher: e.target.value })} placeholder="PROF. IDENTITY" />
               </div>
 
-              <div style={{ gridColumn: 'span 2', display: 'grid', gridTemplateColumns: '1fr 1fr 1.5fr', gap: 24, marginTop: 16 }}>
+              <div className="mobile-stack" style={{ gridColumn: 'span 2', display: 'grid', gridTemplateColumns: '1fr 1fr 1.5fr', gap: 24, marginTop: 16 }}>
                 <div className="admin-form-group">
                   <label>Operational Day</label>
                   <select value={formData.day} onChange={e => setFormData({ ...formData, day: e.target.value })}>
@@ -209,11 +209,11 @@ export default function AdminSubjects() {
                 </div>
                 <div className="admin-form-group">
                   <label>Temporal Slot (Start to End)</label>
-                  <div style={{ display: 'flex', gap: 8 }}>
-                    <select value={formData.timeStart} onChange={e => setFormData({ ...formData, timeStart: e.target.value })}>
+                  <div className="mobile-stack" style={{ display: 'flex', gap: 8 }}>
+                    <select value={formData.timeStart} onChange={e => setFormData({ ...formData, timeStart: e.target.value })} style={{ flex: 1 }}>
                       {TIMES.map(t => <option key={t} value={t}>{t}</option>)}
                     </select>
-                    <select value={formData.timeEnd} onChange={e => setFormData({ ...formData, timeEnd: e.target.value })}>
+                    <select value={formData.timeEnd} onChange={e => setFormData({ ...formData, timeEnd: e.target.value })} style={{ flex: 1 }}>
                       {TIMES.map(t => <option key={t} value={t}>{t}</option>)}
                     </select>
                   </div>
@@ -227,8 +227,8 @@ export default function AdminSubjects() {
           </div>
         )}
 
-        <div className="modern-admin-card" style={{ padding: 0, overflow: 'hidden' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <div className="modern-admin-card scroll-x" style={{ padding: 0, overflowX: 'auto' }}>
+          <table style={{ minWidth: 800, width: '100%', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ background: '#fcfdfe', borderBottom: '2.5px solid #f1f5f9' }}>
                 <th className="th-cell">Protocol</th>
