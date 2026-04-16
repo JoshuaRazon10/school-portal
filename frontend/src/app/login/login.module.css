@@ -36,13 +36,13 @@
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 40px;
-  padding: 48px;
-  box-shadow: 0 40px 100px -12px rgba(0, 0, 0, 0.2);
+  padding: 56px 48px;
+  box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.3);
   text-align: center;
 }
 
@@ -72,11 +72,12 @@
 .logoImg { border-radius: 50%; object-fit: contain; }
 
 .title {
-  font-size: 28px;
-  font-weight: 900;
-  color: #1e3a8a;
-  letter-spacing: -0.04em;
+  font-size: 32px;
+  font-weight: 950;
+  color: #1e3a5f;
+  letter-spacing: -0.05em;
   margin-bottom: 8px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
 .subtitle {
@@ -115,6 +116,13 @@
 }
 
 .form { text-align: left; }
+.form :global(.form-input) {
+  background: rgba(255, 255, 255, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(5px);
+  color: #1e3a5f !important;
+}
+.form :global(.form-input::placeholder) { color: rgba(30, 58, 95, 0.4); }
 .btn-full { width: 100%; padding: 14px; font-size: 15px; margin-top: 8px; }
 
 .footer {

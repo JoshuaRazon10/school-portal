@@ -12,7 +12,7 @@ export default function Dashboard() {
 
    return (
       <div className="animate-in" style={{ background: '#f8fafc', minHeight: '100vh', paddingBottom: 100 }}>
-         <Topbar title={`${user.name.split(' ')[0]}'s Mission Control`} subtitle="Strategic oversight of academic identity and institutional performance." />
+         <Topbar title={`${user.name.split(' ')[0]}'s Student Portal`} subtitle="Strategic oversight of academic identity and institutional performance." />
 
          <main className="page-content dash-main">
 
