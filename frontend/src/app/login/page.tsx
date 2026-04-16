@@ -35,8 +35,7 @@ export default function LoginPage() {
 
   return (
     <div className={styles.page}>
-      <div className={styles.bgContainer} />
-      {/* Decorative Blobs */}
+      {/* Decorative Blobs removed for clean look */}
       <div className={styles.blob1} />
       <div className={styles.blob2} />
 

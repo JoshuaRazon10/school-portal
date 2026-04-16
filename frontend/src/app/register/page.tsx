@@ -6,7 +6,6 @@ import styles from '../login/login.module.css';
 export default function Register() {
   return (
     <div className={styles.page}>
-      <div className={styles.bgContainer} />
       <div className={styles.container} style={{ maxWidth: 500 }}>
         <div className={styles.card} style={{ textAlign: 'center', padding: '60px 40px' }}>
           <div className={styles.header}>
