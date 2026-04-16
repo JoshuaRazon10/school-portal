@@ -7,8 +7,8 @@ import Link from 'next/link';
 import styles from './login.module.css';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('admin@chcc.edu.ph');
-  const [password, setPassword] = useState('password123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login, user } = useAuth();
