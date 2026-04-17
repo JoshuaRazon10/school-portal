@@ -2,7 +2,7 @@ const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 function getToken() {
   if (typeof window !== 'undefined') {
-    return sessionStorage.getItem('portal_token');
+    return localStorage.getItem('portal_token');
   }
   return null;
 }
