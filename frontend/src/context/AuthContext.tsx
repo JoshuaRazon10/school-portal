@@ -36,8 +36,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
-    const savedToken = sessionStorage.getItem('portal_token');
-    const savedUser = sessionStorage.getItem('portal_user');
+    const savedToken = localStorage.getItem('portal_token');
+    const savedUser = localStorage.getItem('portal_user');
     if (savedToken && savedUser) {
       setToken(savedToken);
       setUser(JSON.parse(savedUser));
@@ -57,8 +57,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (data.success) {
         setToken(data.token);
         setUser(data.user);
-        sessionStorage.setItem('portal_token', data.token);
-        sessionStorage.setItem('portal_user', JSON.stringify(data.user));
+        localStorage.setItem('portal_token', data.token);
+        localStorage.setItem('portal_user', JSON.stringify(data.user));
         return { success: true };
       }
       return { success: false, message: data.message };
@@ -70,8 +70,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     setUser(null);
     setToken(null);
-    sessionStorage.removeItem('portal_token');
-    sessionStorage.removeItem('portal_user');
+    localStorage.removeItem('portal_token');
+    localStorage.removeItem('portal_user');
     router.push('/login');
   };
 
