@@ -50,7 +50,7 @@ router.post('/login', async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ success: false, message: 'Server error during login.' });
+    res.status(500).json({ success: false, message: 'Server error during login: ' + err.message });
   }
 });
 
@@ -93,7 +93,7 @@ router.post('/register', async (req, res) => {
     res.json({ success: true, message: 'Registration successful.', token, user: newUser });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ success: false, message: 'MySQL registration error.' });
+    res.status(500).json({ success: false, message: 'MySQL registration error: ' + err.message });
   }
 });
 

@@ -48,7 +48,7 @@ router.get('/', auth, async (req, res) => {
     res.json({ success: true, schedules });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ success: false, message: 'Institutional schedule fetch error.' });
+    res.status(500).json({ success: false, message: 'Institutional schedule fetch error: ' + err.message });
   }
 });
 
