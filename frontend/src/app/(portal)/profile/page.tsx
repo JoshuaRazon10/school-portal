@@ -29,7 +29,7 @@ export default function Profile() {
       
       if (res.success) {
         const updatedUser = { ...user, photo_url: res.photoUrl };
-        sessionStorage.setItem('portal_user', JSON.stringify(updatedUser));
+        localStorage.setItem('portal_user', JSON.stringify(updatedUser));
         showToast('Institutional identity synchronized.', 'success');
         setTimeout(() => window.location.reload(), 1000);
       } else {
